@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Em có thích anh hong Bảo Châu 💖</title>
+<style>
+  :root{--bg1:#fff0f6;--bg2:#fff6ec;--accent:#ff6b9a;--muted:#6b6b6b;}
+  html,body{height:100%;margin:0;font-family:Inter,"Helvetica Neue",Arial,sans-serif;}
+  body{display:flex;align-items:center;justify-content:center;background:linear-gradient(160deg,var(--bg1),var(--bg2));padding:18px;box-sizing:border-box;}
+  .card{width:100%;max-width:780px;background:linear-gradient(180deg,rgba(255,255,255,0.95),rgba(255,255,255,0.9));border-radius:18px;box-shadow:0 18px 40px rgba(0,0,0,0.08);padding:28px;text-align:center;position:relative;}
+  h1{margin:8px 0 6px;font-size:26px;color:#333;}
+  p.lead{margin:6px 0 12px;color:var(--muted);font-size:14px;}
+  .buttons{display:flex;gap:14px;justify-content:center;margin-top:8px;position:relative;height:64px;}
+  button{appearance:none;border:0;padding:12px 18px;font-size:15px;border-radius:12px;cursor:pointer;display:inline-flex;gap:8px;align-items:center;box-shadow:0 8px 20px rgba(0,0,0,0.06);transition:transform .12s ease;}
+  button:active{transform:translateY(2px)}
+  .yes{background:linear-gradient(90deg,#ff9bb8,#ff6b9a);color:white;}
+  .no{background:#fff;color:#333;border:1px solid rgba(0,0,0,0.06);position:relative;}
+  .note{margin-top:12px;color:#777;font-size:13px}
+  .cry-overlay{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;opacity:0;transition:opacity .3s ease;}
+  .cry-overlay.show{pointer-events:auto;opacity:1;}
+  .cry-overlay .big-cry{font-size:12vw;transform:scale(0.95);filter:drop-shadow(0 10px 20px rgba(0,0,0,0.2));animation:pop .6s ease;}
+  @keyframes pop{0%{transform:scale(.6)}50%{transform:scale(1.05)}100%{transform:scale(1)}}
+  .modal{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.35);opacity:0;pointer-events:none;transition:opacity .2s}
+  .modal.show{opacity:1;pointer-events:auto}
+  .modal-card{background:white;padding:22px;border-radius:12px;max-width:360px;text-align:center;box-shadow:0 20px 50px rgba(0,0,0,0.18);}
+  .emoji-big{font-size:46px;margin:8px 0;}
+  .close{margin-top:12px;padding:10px 14px;border-radius:10px;border:0;background:#f0f0f0;cursor:pointer}
+  @media (max-width:480px){.buttons{height:78px}.yes,.no{padding:10px 14px;font-size:15px}}
+</style>
+</head>
+<body>
+  <audio id="bgMusic" src="Summer Express - Japandee x Thereon Remix.mp3" autoplay loop></audio>
+  <audio id="loveMusic" src="Người Âm Phủ - OSAD x VRT | OFFICIAL VERSION.mp3"></audio>
+
+  <div class="card" id="card">
+    <h1>Cho em 1 phút suy nghĩ trướt khi trả lời câu hỏi này! 😚</h1>
+    <p class="lead">Em có thích anh hong Bảo Châu 💖</p>
+    <div class="buttons">
+      <button class="yes" id="yesBtn">🥰 Có ạ</button>
+      <button class="no" id="noBtn">😅 Khôngg</button>
+    </div>
+    <div class="note">Nhấn <b>Có ạ</b> để xem điều bất ngờ 💞</div>
+  </div>
+
+  <div class="modal" id="modal">
+    <div class="modal-card">
+      <div class="emoji-big">🥰</div>
+      <h2>Mãi mãi yêu em thật lòng 🥰</h2>
+      <p>Em là tất cả với anh, Bảo Châu à 💖</p>
+      <button class="close" id="closeModal">Okii 💞</button>
+    </div>
+  </div>
+
+  <div class="cry-overlay" id="cryOverlay"><div class="big-cry">😭</div></div>
+
+<script>
+const yesBtn = document.getElementById("yesBtn");
+const noBtn = document.getElementById("noBtn");
+const modal = document.getElementById("modal");
+const closeModal = document.getElementById("closeModal");
+const cryOverlay = document.getElementById("cryOverlay");
+const bgMusic = document.getElementById("bgMusic");
+const loveMusic = document.getElementById("loveMusic");
+
+let noClicks = 0;
+
+// Khi bấm "Có"
+yesBtn.onclick = () => {
+  modal.classList.add("show");
+  cryOverlay.classList.remove("show");
+  
+  // Dừng nhạc nền
+  bgMusic.pause();
+  
+  // Phát Người Âm Phủ (42s đầu)
+  loveMusic.currentTime = 0;
+  loveMusic.play();
+  
+  setTimeout(() => {
+    loveMusic.pause();
+    bgMusic.play();
+  }, 42000); // 42 giây sau phát lại nhạc nền
+};
+
+// Đóng modal
+closeModal.onclick = () => modal.classList.remove("show");
+
+// Nút "Không" né và đổi nội dung
+noBtn.addEventListener("mouseover", () => {
+  const x = Math.random() * 300 - 150;
+  const y = Math.random() * 200 - 100;
+  noBtn.style.transform = `translate(${x}px,${y}px)`;
+});
+
+noBtn.addEventListener("click", () => {
+  noClicks++;
+  cryOverlay.classList.add("show");
+  setTimeout(() => cryOverlay.classList.remove("show"), 7000); // 7s overlay
+  
+  if (noClicks === 1) {
+    noBtn.textContent = "Nghĩ kỹ lại đi 😥";
+  } else if (noClicks === 2) {
+    noBtn.textContent = "Thôi bấm Có đi mà 😅";
+  } else {
+    noBtn.textContent = "😢 Anh buồn đó...";
+  }
+});
+</script>
+</body>
+</html>
